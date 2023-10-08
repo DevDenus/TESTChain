@@ -2,24 +2,32 @@
 #define BLOCK_H
 
 #include <string>
+#include <iostream>
+#include <sstream>
+#include <openssl/sha.h>
+#include <iomanip>
 #include <ctime>
 
 class Block
 {
 public:
-    Block(const unsigned i, const std::string &h, const std::string &ph, const std::tm ts, const std::string &d) : index(i), hash(h), previous_hash(ph), timestamp(ts), data(d) {}
-    const unsigned get_index();
-    const std::string get_hash();
-    const std::string get_previous_hash();
-    const std::tm get_timestamp();
-    const std::string get_data();
+    std::string previous_hash;
+
+    Block(unsigned index_in, const std::string &data_in);
+
+    std::string get_hash();
+    std::string get_previous_hash();
+    std::string get_block();
+    void mine_block(unsigned difficulty);
 
 private:
-    const unsigned index;
-    const std::string hash;
-    const std::string previous_hash;
-    const std::tm timestamp;
-    const std::string data;
+    unsigned index;
+    std::string hash;
+    long long nonce;
+    time_t timestamp;
+    std::string data;
+
+    inline std::string calculate_hash() const;
 };
 
 #endif
