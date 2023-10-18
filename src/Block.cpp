@@ -26,11 +26,6 @@ std::string Block::get_hash()
     return hash;
 }
 
-std::string Block::get_previous_hash()
-{
-    return previous_hash;
-}
-
 std::string Block::get_block()
 {
     std::stringstream ss;
